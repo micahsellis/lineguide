@@ -1,8 +1,24 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView
 # Add the following import
 from django.http import HttpResponse
+from .models import *
 # Define the home view
 
 
 def home(request):
-  return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+  return render(request, 'home.html')
+
+class LineCreate(CreateView):
+    model = Line
+    fields = ['name', 'address', 'city', 'state', 'postal_code', 'line_type', 'category']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+def lines_detail(request, line_id):
+    line = Line.objects.get(id=line_id)
+    return render(request, 'lines/detail.html', {'line':line})
