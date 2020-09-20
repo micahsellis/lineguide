@@ -18,9 +18,11 @@
                     <li><a href="/" class="left brand-logo">Line Guide</a></li>
                 </ul>
                 <ul class="right">
-                    <li><a href="">ADD LINE</a></li>
-                    <li><a href="">Sign Up</a></li>
-                    <li><a href="">Log In</a></li>
+                    <li><a href="{% url 'line_create' %}">Create NEW Line</a></li>
+                    <li><a href="{% url 'all_lines' %}">All Lines</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}">Log In</a></li>
                 </ul>
             </div>
         </nav>

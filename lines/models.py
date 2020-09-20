@@ -12,7 +12,7 @@ class Line(models.Model):
     postal_code = models.CharField(max_length=10, blank=True)
     line_type = models.CharField(max_length=100)
     category = models.CharField(max_length=100, blank=True)
-    stars = models.FloatField(null=True, blank=True)
+    description = models.CharField(max_length=500, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

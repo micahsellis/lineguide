@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Line List</h1>
+
+{% for line in lines %}
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">{{ line.name }}</span>
+        <p>Address: {{ line.address }}</p>
+        <p>City: {{ line.city }}</p>
+        <p>State: {{ line.state }}</p>
+        <p>Zip Code: {{ line.postal_code }}</p>
+        <p>Line Type: {{ line.line_type }}</p>
+        <p>Category: {{ line.category }}</p>
+        <p>Description: {{line.description }}</p>
+        <p>Created By: {{ line.user }} </p>
+
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}
