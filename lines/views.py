@@ -58,8 +58,17 @@ class WaitCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-def waits_detail(request, line_id):
-    wait = Line.objects.get(id=wait_id)
+class WaitUpdate(UpdateView):
+  model = Wait
+  fields = ['wait_time', 'party_size']
+
+
+class WaitDelete(DeleteView):
+  model = Wait
+  success_url = '/'
+
+def waits_detail(request, wait_id):
+    wait = Wait.objects.get(id=wait_id)
     return render(request, 'waits/detail.html', {'wait': wait})
 
 
