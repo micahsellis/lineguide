@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Line Guide</h1>
-
+<br>
+<br>
+<h1 class="box-header">Line Guide</h1>
+<br>
 <form action="" method="GET">
-    <input type="text">
-    <button class="btn green">Submit</button>
+    <div class="input-field">
+        <input type="text">
+    </div>
+    <br>
+        <button class="btn">Search</button>
+    {% csrf_token %}
 </form>
 
 
-{{ yelp }}
+<!-- {{ yelp }} -->
 {% endblock %}
