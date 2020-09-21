@@ -30,3 +30,16 @@ class Photo(models.Model):
 
     def __str__(self):
         return f"Photo for line_id: {self.line_id} @{self.url}"
+
+class Wait(models.Model):
+    wait_time = models.IntegerField()
+    party_size = models.IntegerField()
+    business_id = models.CharField(max_length=100)
+    line = models.ForeignKey(Line, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('all_lines', kwargs={'pk': self.id})
