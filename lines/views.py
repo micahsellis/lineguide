@@ -76,7 +76,13 @@ class WaitDelete(DeleteView):
 
 def waits_detail(request, wait_id, line_id):
     wait = Wait.objects.filter(line=line_id)
-    return render(request, 'lines/wait_detail.html', {'wait': wait})
+    total = 0
+    for w in wait:
+      total += w.wait_time
+    avg = total / len(wait)
+    avg = round(avg,1)
+    return render(request, 'waits/detail.html', {'wait': wait, 'avg': avg})
+
 
 
 class LineUpdate(UpdateView):
