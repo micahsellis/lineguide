@@ -5,9 +5,10 @@
 <br>
 <h1 class="box-header">Line Guide</h1>
 <br>
-<form action="" method="GET">
+<form action="{% url 'search_results' %}" method="GET">
     <div class="input-field">
-        <input type="text">
+        <input name="q" type="text" value="Search...">
+        <input name="l" type="text" placeholder="Location">
     </div>
     <br>
         <button class="btn">Search</button>

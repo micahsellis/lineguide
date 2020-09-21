@@ -5,9 +5,14 @@
 
 <ul>
     {% for line in object_list %}
+    {% for photo in line.photo_set.all %}
+
+    <img src="{{photo.url}}" alt="" width="300px">
+    {%endfor%}
     <li>
         {{ line.name }}, {{ line.state }}
     </li>
+
     {% endfor %}
 </ul>
 

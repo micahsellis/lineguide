@@ -9,6 +9,7 @@ from django.http import HttpResponse
 from .models import *
 from .services import get_yelp
 import os
+import json
 # Define the home view
 
 
@@ -28,7 +29,7 @@ class LineCreate(LoginRequiredMixin, CreateView):
 
 def lines_detail(request, line_id):
     line = Line.objects.get(id=line_id)
-    photo = Photo.objects.get(line=line.id)
+    photo = line.photo_set.all()
     wait = Wait.objects.filter(line=line_id)
     total = 0
     for w in wait:
@@ -110,7 +111,6 @@ class SearchResultsView(ListView):
         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
         Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)
       )
-    
-    print(queryset)
     return queryset
     
+
