@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Q
 from django.http import HttpResponse
 from .models import *
 from .services import get_yelp
@@ -25,7 +26,14 @@ class LineCreate(LoginRequiredMixin, CreateView):
 
 def lines_detail(request, line_id):
     line = Line.objects.get(id=line_id)
-    return render(request, 'lines/detail.html', {'line': line})
+    photo = Photo.objects.get(line=line.id)
+    wait = Wait.objects.filter(line=line_id)
+    total = 0
+    for w in wait:
+      total += w.wait_time
+    avg = total / len(wait)
+    avg = round(avg, 1)
+    return render(request, 'lines/detail.html', {'line': line, 'photo': photo, 'avg':avg})
    
 def signup(request):
   error_message = ''
@@ -67,9 +75,14 @@ class WaitDelete(DeleteView):
   model = Wait
   success_url = '/'
 
-def waits_detail(request, wait_id):
-    wait = Wait.objects.get(id=wait_id)
-    return render(request, 'waits/detail.html', {'wait': wait})
+def waits_detail(request, wait_id, line_id):
+    wait = Wait.objects.filter(line=line_id)
+    total = 0
+    for w in wait:
+      total += w.wait_time
+    avg = total / len(wait)
+    avg = round(avg,1)
+    return render(request, 'lines/wait_detail.html', {'wait': wait, 'avg': avg})
 
 
 class LineUpdate(UpdateView):
@@ -81,3 +94,19 @@ class LineUpdate(UpdateView):
 class LineDelete(DeleteView):
   model = Line
   success_url = '/'
+
+class SearchResultsView(ListView):
+  model = Line
+  template_name = 'search_results.html'
+
+  def get_queryset(self):
+    query = self.request.GET.get('q')
+    locale = self.request.GET.get('l')
+    queryset = Line.objects.filter(
+        Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
+        Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)
+      )
+    
+    print(queryset)
+    return queryset
+    

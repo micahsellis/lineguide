@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Wait Details</h1>
+{{ avg }}
+{% for w in wait %}
+{{w.wait_time}}
+{{w.line_id}}
+{% endfor %}
+
+{% endblock %}

@@ -18,6 +18,11 @@
                     <li><a href="/" class="left brand-logo">Line Guide</a></li>
                 </ul>
                 <ul class="right">
+                    <li><form action="{% url 'search_results' %}" method="get">
+                        <li><input name="q" type="text" placeholder="Search..."></li>
+                        <li><input name="l" type="text" placeholder="Location"></li>
+                        <li><button type="submit">Search</button></li>
+                    </form></li>
                     <li><a href="{% url 'line_create' %}">Create NEW Line</a></li>
                     <li><a href="{% url 'all_lines' %}">All Lines</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
