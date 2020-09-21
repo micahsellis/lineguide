@@ -2,10 +2,36 @@
 {% block content %}
 
 <h1>Wait Details</h1>
-{{ avg }}
-{% for w in wait %}
-{{w.wait_time}}
-{{w.line_id}}
-{% endfor %}
+
+<div class="card-action">
+    <div class="avg-time">
+        <p>Average wait time: <span class="avg-num">{{ avg }}</span></p>
+    </div>
+</div>
+
+<form class="add-wait" action="" method="POST">
+    {% csrf_token %}
+    <input class="add-wait-input" type="text" name="" value="" />
+    <button class="add-wait-btn" type="submit">UPDATE TIME</button>
+</form>
+<br>
+<br>
+<br>
+<br>
+<br>
+<hr>
+
+<table class="wait-table">
+    <tr class="table-header">
+        <th>Wait Time</th>
+        <th>Party Size</th>
+    </tr>
+    {% for waits in wait %}
+    <tr class="table-data">
+        <td>{{ waits.wait_time }}</td>
+        <td>{{ waits.party_size }}</td>
+    </tr>
+    {% endfor %}
+</table>
 
 {% endblock %}

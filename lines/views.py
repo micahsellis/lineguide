@@ -37,6 +37,7 @@ def lines_detail(request, line_id):
     avg = round(avg, 1)
     return render(request, 'lines/detail.html', {'line': line, 'photo': photo, 'avg':avg})
 
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -87,7 +88,7 @@ def waits_detail(request, wait_id, line_id):
       total += w.wait_time
     avg = total / len(wait)
     avg = round(avg,1)
-    return render(request, 'waits/detail.html', {'wait': wait, 'avg': avg})
+    return render(request, 'lines/wait_detail.html', {'wait': wait, 'avg': avg})
 
 class LineUpdate(UpdateView):
     model = Line
