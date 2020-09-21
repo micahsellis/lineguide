@@ -27,6 +27,7 @@
           <p>Line Type: {{ line.line_type }}</p>
           <p>Catergory: {{ line.catergory }}</p>
           <p>Description: {{ line.description }}</p>
+          <p>Average wait time: {{avg}}</p>
         </div>
         <div class="card-action">
           <a href="{% url 'line_update' line.id %}">Edit</a>

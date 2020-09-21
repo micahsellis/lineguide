@@ -32,11 +32,14 @@ def lines_detail(request, line_id):
     photo = line.photo_set.all()
     wait = Wait.objects.filter(line=line_id)
     total = 0
-    for w in wait:
-      total += w.wait_time
-    avg = total / len(wait)
-    avg = round(avg, 1)
-    return render(request, 'lines/detail.html', {'line': line, 'photo': photo, 'avg':avg})
+    if len(wait) > 0:
+        for w in wait:
+            total += w.wait_time
+        avg = total / len(wait)
+        avg = round(avg, 1)
+    else:
+        avg = "No wait times submitted!"
+    return render(request, 'lines/line_detail.html', {'line': line, 'photo': photo, 'avg':avg})
 
 
 def signup(request):
@@ -83,6 +86,7 @@ class WaitDelete(DeleteView):
 
 
 def waits_detail(request, wait_id, line_id):
+    template_name = 'lines/wait_detail.html'
     wait = Wait.objects.filter(line=line_id)
     total = 0
     for w in wait:
