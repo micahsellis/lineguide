@@ -28,7 +28,7 @@ class LineCreate(LoginRequiredMixin, CreateView):
 def lines_detail(request, line_id):
     line = Line.objects.get(id=line_id)
     photo = Photo.objects.get(line=line.id)
-    return render(request, 'lines/detail.html', {'line': line, 'photo': photo})
+    return render(request, 'lines/line_detail.html', {'line': line, 'photo': photo})
 
 
 def signup(request):
