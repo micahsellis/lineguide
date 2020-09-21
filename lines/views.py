@@ -81,7 +81,7 @@ def waits_detail(request, wait_id, line_id):
       total += w.wait_time
     avg = total / len(wait)
     avg = round(avg,1)
-    return render(request, 'waits/detail.html', {'wait': wait, 'avg': avg})
+    return render(request, 'lines/wait_detail.html', {'wait': wait, 'avg': avg})
 
 
 
