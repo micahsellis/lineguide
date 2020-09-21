@@ -67,9 +67,14 @@ class WaitDelete(DeleteView):
   model = Wait
   success_url = '/'
 
-def waits_detail(request, wait_id):
-    wait = Wait.objects.get(id=wait_id)
-    return render(request, 'waits/detail.html', {'wait': wait})
+def waits_detail(request, wait_id, line_id):
+    wait = Wait.objects.filter(line=line_id)
+    total = 0
+    for w in wait:
+      total += w.wait_time
+    avg = total / len(wait)
+    avg = round(avg,1)
+    return render(request, 'waits/detail.html', {'wait': wait, 'avg': avg})
 
 
 class LineUpdate(UpdateView):
