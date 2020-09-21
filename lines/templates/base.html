@@ -18,11 +18,17 @@
                     <li><a href="/" class="left brand-logo">LINE GUIDE</a></li>
                 </ul>
                 <ul class="right">
-                    <li><a href="{% url 'line_create' %}">CREATE NEW LINE</a></li>
-                    <li><a href="{% url 'all_lines' %}">ALL LINES</a></li>
-                    <li><a href="{% url 'about' %}">ABOUT</a></li>
-                    <li><a href="{% url 'signup' %}">SIGN UP</a></li>
-                    <li><a href="{% url 'login' %}">LOG IN</a></li>
+
+                    <li><form action="{% url 'search_results' %}" method="get">
+                        <li><input name="q" type="text" placeholder="Search..."></li>
+                        <li><input name="l" type="text" placeholder="Location"></li>
+                        <li><button type="submit">Search</button></li>
+                    </form></li>
+                    <li><a href="{% url 'line_create' %}">Create NEW Line</a></li>
+                    <li><a href="{% url 'all_lines' %}">All Lines</a></li>
+                    <li><a href="{% url 'about' %}">About</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'login' %}">Log In</a></li>
                 </ul>
             </div>
         </nav>

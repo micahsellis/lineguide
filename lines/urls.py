@@ -15,4 +15,5 @@ urlpatterns = [
     path('waits/<int:wait_id>/<int:line_id>', views.waits_detail, name='wait_detail'),
     path('waits/<int:pk>/update/', views.WaitUpdate.as_view(), name='wait_update'),
     path('waits/<int:pk>/delete/', views.WaitDelete.as_view(), name='wait_delete'),
+    path('search/', views.SearchResultsView.as_view(), name='search_results'),
 ]
