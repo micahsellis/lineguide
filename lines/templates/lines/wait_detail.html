@@ -3,35 +3,44 @@
 
 <h1>Wait Details</h1>
 
-<div class="card-action">
-    <div class="avg-time">
-        <p>Average wait time: <span class="avg-num">{{ avg }}</span></p>
+    <div class="row">
+        <div class="col s6">
+            <div class="card" style="height: 250px;">
+                <div class="card-content center-align" >
+                        <p class="">Avg: <span style="font-size: 125px;" class="avg-num">{{ avg }}</span></p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col s6">
+            <div class="card" style="height: 250px;">
+                <div class="card-content center-align">
+                    <form class="" action="" method="POST">
+                        {% csrf_token %}
+                        <div class="input-field">
+                            <i class="material-icons prefix"></i>
+                            <input id="access_time" class="validate" type="text" >
+                            <button class="btn" type="submit">Update Time</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-
-<form class="add-wait" action="" method="POST">
-    {% csrf_token %}
-    <input class="add-wait-input" type="text" name="" value="" />
-    <button class="add-wait-btn" type="submit">UPDATE TIME</button>
-</form>
-<br>
-<br>
-<br>
-<br>
 <br>
 <hr>
 
-<table class="wait-table">
-    <tr class="table-header">
-        <th>Wait Time</th>
-        <th>Party Size</th>
-    </tr>
-    {% for waits in wait %}
-    <tr class="table-data">
-        <td>{{ waits.wait_time }}</td>
-        <td>{{ waits.party_size }}</td>
-    </tr>
-    {% endfor %}
-</table>
+    <table class="wait-table">
+        <tr class="table-header">
+            <th>Wait Time</th>
+            <th>Party Size</th>
+        </tr>
+        {% for waits in wait %}
+        <tr class="table-data">
+            <td>{{ waits.wait_time }}</td>
+            <td>{{ waits.party_size }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
