@@ -1,16 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if object %}
-<h1>Edit <span class="teal-text">{{object.name}}</span></h1>
-{% else %}
-<h1>Add Line</h1>
-{% endif %}
-<form action="" method="post">
-    {% csrf_token %}
-    <table>
-        {{ form.as_table }}
-    </table>
-    <input type="submit" value="CREATE LINE" class="btn green right">
-</form>
+<div class="row grey darken-3" style="border-radius: 15px;">
+    <div class="card center-align">
+        <div class="card-content col s8 offset-s2" style="height: 675px;">
+            {% if object %}
+            <h1>Edit <span class="cyan-text center">{{object.name}}</span></h1>
+            {% else %}
+            <h1 class="cyan-text center">Add Line</h1>
+            {% endif %}
+            <form action="" method="post">
+                {% csrf_token %}
+                <table>
+                    {{ form.as_table }}
+                </table>
+                <br><input type="submit" value="CREATE LINE" class="btn cyan center" style="border-radius: 7px;">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+      const selectEl = document.getElementById('id_line_type');
+        M.FormSelect.init(selectEl);
+</script>
 {% endblock %}

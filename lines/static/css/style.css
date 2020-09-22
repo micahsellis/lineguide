@@ -4,17 +4,33 @@ body {
   flex-direction: column;
   font-family: Helvetica,Helvetica,Arial,sans-serif;
   color: black;
-  background-color: whitesmoke;
+  background-color: #e0e0e0;
   
 }
 main {
   flex: 1 0 auto;
 }
-.nav-wrapper {
-  background-color: black;
-  
-}  
-
+nav ul li a, nav ul li input{
+  color: #00bcd4;
+}    
+label {
+  color: white;
+  font-size: 20px;
+}
+td, th {
+  padding: 2px;
+}
+input:not([type]), input[type=text]:not(.browser-default), input[type=password]:not(.browser-default), input[type=email]:not(.browser-default), input[type=url]:not(.browser-default), input[type=time]:not(.browser-default), input[type=date]:not(.browser-default), input[type=datetime]:not(.browser-default), input[type=datetime-local]:not(.browser-default), input[type=tel]:not(.browser-default), input[type=number]:not(.browser-default), input[type=search]:not(.browser-default), textarea.materialize-textarea  {
+  border-bottom: 1px solid white;
+  height: 2.5rem;
+  color: #00bcd4;
+}
+input.select-dropdown {
+  color: white;
+}
 footer.page-footer {
-  background-color: black;
+  background-color: #212121;
+  padding-top: 0;
+  text-align: right;
+  color: #00bcd4;
 }
