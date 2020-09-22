@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponse
+from .forms import WaitForm
 from .models import *
 from .services import get_yelp
 import os
@@ -30,6 +31,7 @@ class LineCreate(LoginRequiredMixin, CreateView):
 def lines_detail(request, line_id):
     line = Line.objects.get(id=line_id)
     photo = line.photo_set.all()
+    wait_form = WaitForm()
     wait = Wait.objects.filter(line=line_id)
     total = 0
     if len(wait) > 0:
@@ -39,7 +41,7 @@ def lines_detail(request, line_id):
         avg = round(avg, 1)
     else:
         avg = "No wait times submitted!"
-    return render(request, 'lines/line_detail.html', {'line': line, 'photo': photo, 'avg':avg})
+    return render(request, 'lines/line_detail.html', {'line': line, 'photo': photo, 'avg':avg, 'wait_form': wait_form})
 
 
 def signup(request):
@@ -66,14 +68,14 @@ def all_lines(request):
     return render(request, 'lines/all.html', {'lines': lines})
 
 
-class WaitCreate(LoginRequiredMixin, CreateView):
-    model = Wait
-    fields = ['wait_time', 'party_size']
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
-
+def add_wait(request, line_id):
+    form = WaitForm(request.POST)
+    if form.is_valid():
+        new_wait = form.save(commit=False)
+        new_wait.user_id = request.user
+        new_wait.line_id = line_id
+        new_wait.save()
+    return redirect('line_detail', line_id=line_id)
 
 class WaitUpdate(UpdateView):
     model = Wait

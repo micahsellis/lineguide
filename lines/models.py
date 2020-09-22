@@ -38,7 +38,7 @@ class Photo(models.Model):
 class Wait(models.Model):
     wait_time = models.IntegerField()
     party_size = models.IntegerField()
-    business_id = models.CharField(max_length=100, blank=True)
+    # business_id = models.ForeignKey(Yelp, on_delete=models.CASCADE)
     line = models.ForeignKey(Line, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
