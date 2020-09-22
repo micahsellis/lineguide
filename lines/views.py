@@ -72,7 +72,7 @@ def add_wait(request, line_id):
     form = WaitForm(request.POST)
     if form.is_valid():
         new_wait = form.save(commit=False)
-        new_wait.user_id = self.request.user
+        new_wait.user_id = request.user
         new_wait.line_id = line_id
         new_wait.save()
     return redirect('line_detail', line_id=line_id)
