@@ -12,10 +12,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import environ
-import django_heroku
+# import django_heroku
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 
 environ.Env()
