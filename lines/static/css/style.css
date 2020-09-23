@@ -37,3 +37,7 @@ footer.page-footer {
   text-align: right;
   color: #00bcd4;
 }
+.center-align {
+
+  justify-items: center;
+}
