@@ -16,16 +16,37 @@
     <div class="card-content teal-text center-align" style="height: 350px;">
       <span class="card-title activator white-text text-darken-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Average Wait Time<i class="material-icons right" style="font-size: 35px;">more_vert</i>
         <br><br></span>
+        {%if type(avg) is float: %}
       <p><span class="activator red-text text-darken-4" style="font-size: 100px">{{ avg }}</span>
       <span class="activator red-text text-darken-4" style="font-size: 40px;">min</span></p>
+      {%else:%}
+      <p><span class="activator red-text text-darken-4" style="font-size: 20px">{{ avg }}</span>
+      {%endif%}
       <p><a class="activator white-text" href="#" style="font-size: 25px;"><br>Add a new wait time</a></p>
     </div>
-    <div class="card-reveal grey darken-1 center-align">
-      <span class="card-title white-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Wait Time<i class="material-icons right">close</i></span>
-      <form action="{% url 'add_wait' line.id %}" method="post">
+      <div class="card-reveal grey darken-1 center-align">
+        <span class="card-title white-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Wait Time<i class="material-icons right">close</i></span>
+        <form action="{% url 'add_wait' line.id %}" method="post">
         {% csrf_token %} {{ wait_form.as_p }}
-        <input type="submit" class="btn cyan" value="Add Wait Time" style="border-radius: 15px;" />
-      </form>
+          <input type="submit" class="btn cyan waves-effect waves-light" value="Add Wait Time" style="border-radius: 15px;" />
+        </form>
+        <table class="striped">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Party</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for wait in line.wait_set.all %}
+        <tr>
+          <td>{{wait.wait_time}}</td>
+          <td>{{wait.party_size}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+      </div>
     </div>
   </div>
 </div>
