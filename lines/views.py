@@ -64,7 +64,7 @@ def about(request):
 
 
 def all_lines(request):
-    lines = Line.objects.all()
+    lines = Line.objects.filter(user=request.user.id)
     return render(request, 'lines/all.html', {'lines': lines})
 
 
@@ -77,15 +77,26 @@ def add_wait(request, line_id):
         new_wait.save()
     return redirect('detail', line_id=line_id)
 
-class WaitUpdate(UpdateView):
+class WaitUpdate(LoginRequiredMixin, UpdateView):
     model = Wait
     fields = ['wait_time', 'party_size']
 
+    def form_valid(self, form):
+        if form.instance.user == self.request.user:
+            return super().form_valid(form)
+        else:
+            return redirect('/')
 
-class WaitDelete(DeleteView):
+
+class WaitDelete(LoginRequiredMixin, DeleteView):
     model = Wait
     success_url = '/'
 
+    def form_valid(self, form):
+        if form.instance.user == self.request.user:
+            return super().form_valid(form)
+        else:
+            return redirect('/')
 
 def waits_detail(request, wait_id, line_id):
     template_name = 'lines/wait_detail.html'
@@ -97,14 +108,28 @@ def waits_detail(request, wait_id, line_id):
     avg = round(avg,1)
     return render(request, 'lines/wait_detail.html', {'wait': wait, 'avg': avg})
 
-class LineUpdate(UpdateView):
+class LineUpdate(LoginRequiredMixin, UpdateView):
     model = Line
     fields = ['address', 'city', 'state',
               'postal_code', 'line_type', 'category', 'description']
 
-class LineDelete(DeleteView):
+    def form_valid(self, form):
+        if form.instance.user == self.request.user:
+            return super().form_valid(form)
+        else:
+            return redirect('/')
+
+
+
+class LineDelete(LoginRequiredMixin, DeleteView):
   model = Line
   success_url = '/'
+
+  def form_valid(self, form):
+        if form.instance.user == self.request.user:
+            return super().form_valid(form)
+        else:
+            return redirect('/')
 
 class SearchResultsView(ListView):
   model = Line

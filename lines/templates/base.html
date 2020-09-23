@@ -18,7 +18,7 @@
         <nav>
             <div class="nav-wrapper grey darken-4">
                 <ul>
-                    <li><a href="/" class="left brand-logo"><img src="{% static 'images/lg_logo_small_dark2.png' %}" alt="" style="height: 65px;"></a></li>
+                    <li><a href="/" class="left brand-logo">&nbsp;&nbsp;<img src="{% static 'images/lg_logo_small_dark2.png' %}" alt="" style="height: 65px; border-left: 10px;"></a></li>
                 </ul>
                 <ul class="right">
 
@@ -28,10 +28,14 @@
                         <li><button type="submit" class="btn-floating btn-small waves-effect cyan darken-1"><i
                                     class="material-icons">search</i></button>&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     </form></li>
-                    <li><a class="text-cyan text-lighten-1" href="{% url 'line_create' %}">Create NEW Line</a></li>
-                    <li><a href="{% url 'all_lines' %}">All Lines</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
-                    <li><a href="{% url 'login' %}">Log In/Sign Up</a></li>
+                    {% if request.user.id %}
+                    <li><a class="text-cyan text-lighten-1" href="{% url 'line_create' %}">Create NEW Line</a></li>
+                    <li><a href="{% url 'all_lines' %}">My Lines</a></li>
+                    <li><a href="{% url 'logout' %}">LogOut</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">LogIn/SignUp</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>

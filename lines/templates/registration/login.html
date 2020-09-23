@@ -14,9 +14,10 @@
                 <input type="submit" class="btn-large cyan waves-effect waves-light" value="login" style="border-radius:25px;">
                 <input type="hidden" name="next" value="{{ next }}">
             </form>
+            <br>
+            <a class="cyan-text center-align" href="{% url 'signup' %}">Don't already have an account? Sign Up Now!</a>
         </div>
     </div>
 </div>
-<a class="cyan-text center-align" href="{% url 'signup' %}">Don't already have an account? Sign Up Now!</a>
 
 {% endblock %}
