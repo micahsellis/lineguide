@@ -40,7 +40,7 @@ def lines_detail(request, line_id):
         avg = total / len(wait)
         avg = round(avg, 1)
     else:
-        avg = "No wait times submitted!"
+        avg = 0
     return render(request, 'lines/line_detail.html', {'line': line, 'photo': photo, 'avg':avg, 'wait_form': wait_form})
 
 

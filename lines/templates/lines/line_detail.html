@@ -8,7 +8,7 @@
       {% for photo in line.photo_set.all %}
       <img class="responsive-img" src="{{photo.url}}" alt="" style="height: 250px; border-top: 10px;" />
       {% empty %}
-      <div class="card-panel teal-text center-align">No Photos Uploaded</div>
+      <div class="card-panel teal-text center-align">{% static 'images/lg_no_photo.png'%}</div>
       {% endfor %}
     </div>
   </div>
@@ -16,11 +16,11 @@
     <div class="card-content teal-text center-align" style="height: 350px;">
       <span class="card-title activator white-text text-darken-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Average Wait Time<i class="material-icons right" style="font-size: 35px;">more_vert</i>
         <br><br></span>
-        {%if type(avg) is float: %}
+        {%if avg %}
       <p><span class="activator red-text text-darken-4" style="font-size: 100px">{{ avg }}</span>
       <span class="activator red-text text-darken-4" style="font-size: 40px;">min</span></p>
-      {%else:%}
-      <p><span class="activator red-text text-darken-4" style="font-size: 20px">{{ avg }}</span>
+      {%else%}
+      <p><span class="activator red-text text-darken-4" style="font-size: 50px">No Wait Times Submitted!</span>
       {%endif%}
       <p><a class="activator white-text" href="#" style="font-size: 25px;"><br>Add a new wait time</a></p>
     </div>
