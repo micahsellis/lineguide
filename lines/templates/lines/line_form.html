@@ -5,7 +5,7 @@
     <div class="card center-align">
         <div class="card-content col s8 offset-s2" style="height: 675px;">
             {% if object %}
-            <h1>Edit <span class="cyan-text center">{{object.name}}</span></h1>
+            <h1 class="cyan-text center">Edit <span class="cyan-text center">{{object.name}}</span></h1>
             {% else %}
             <h1 class="cyan-text center">Add Line</h1>
             {% endif %}
@@ -14,7 +14,7 @@
                 <table>
                     {{ form.as_table }}
                 </table>
-                <br><input type="submit" value="CREATE LINE" class="btn cyan center" style="border-radius: 7px;">
+                <br><input type="submit" value="Save" class="btn cyan center" style="border-radius: 7px;">
             </form>
         </div>
     </div>
