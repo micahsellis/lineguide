@@ -17,6 +17,11 @@ label {
   color: white;
   font-size: 20px;
 }
+.responsive {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+}
 ul li, span.helptext{
   color: #00838f;
 }

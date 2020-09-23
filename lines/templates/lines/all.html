@@ -1,17 +1,21 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
+{% load static %}
 
-<h1>Line List</h1>
-
+<h1 class="cyan-text center">My Lines</h1>
+{% if lines %}
 {% for line in lines %}
-<a href="{% url 'detail' line.id %}">
-  <div class="col s12 m7 hoverable">
+
+<div class="col s12 m7 hoverable">
     <a class="cyan-text" href="{% url 'detail' line.id %}">
         <div class="card horizontal grey darken-3 white-text valign-wrapper" style="font-size: 19px; border-radius: 15px">
-            {% for photo in line.photo_set.all %}
             <div class="card-image" >
-                <img src="{{ photo.url }}" style="border-top-left-radius: 15px;border-bottom-left-radius: 15px;">
+                {% for photo in line.photo_set.all %}
+                <img src="{{ photo.url }}" style="border-top-left-radius: 15px;border-bottom-left-radius: 15px; max-height: 250px;">
+                {% empty %}
+                <img class="responsive card-image center" src="{% static 'images/lg_no_photo.png' %}" alt="" style="border-top-left-radius: 15px;border-bottom-left-radius: 15px; max-height: 250px;"/>
+                {% endfor %}
             </div>
-            {% endfor %}
             <div class="card-stacked">
                 <div class="card-content">
                     <h4 class="cyan-text">{{ line.name }}</h5>
@@ -24,5 +28,10 @@
         </div>
     </a>
 </div>
-  {% endfor %} {% endblock %}</a
->
+
+{% endfor %} 
+{% else %}
+<br><br>
+<h5 class="center">You haven't created any lines <a class="cyan-text" href="{% url 'line_create' %}">Add a line now!</a></h5>
+{% endif %}
+{% endblock %}
