@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Log In</h1>
+<div class="row grey darken-3" style="border-radius: 15px;">
+    <div class="card center-align">
+        <div class="card-content col s8 offset-s2">
 
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn" value="login">
-    <input type="hidden" name="next" value="{{ next }}">
-</form>
+            <h1 class="cyan-text">Log In</h1>
+
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <br>
+                <input type="submit" class="btn-large cyan waves-effect waves-light" value="login" style="border-radius:25px;">
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

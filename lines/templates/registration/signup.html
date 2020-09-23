@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Sign Up</h1>
+<div class="row grey darken-3" style="border-radius: 15px;">
+    <div class="card center-align">
+        <div class="card-content col s8 offset-s2">
+            <h1 class="cyan-text">Sign Up</h1>
 
-{% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
+            {% if error_message %}<p class="red-text">{{ error_message }}</p>{% endif %}
 
-<form method="post" action="{% url 'signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" class="btn" value="signup">
-</form>
+                <form method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }} 
+                    <br>
+                    <input type="submit" class="btn cyan waves-effect waves-light" value="signup" style="border-radius:15px;">        
+                </form>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

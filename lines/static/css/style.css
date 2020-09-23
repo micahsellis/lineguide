@@ -17,6 +17,9 @@ label {
   color: white;
   font-size: 20px;
 }
+ul li, span.helptext{
+  color: #00838f;
+}
 td, th {
   padding: 2px;
 }
