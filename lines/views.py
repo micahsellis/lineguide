@@ -1,6 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -72,10 +72,10 @@ def add_wait(request, line_id):
     form = WaitForm(request.POST)
     if form.is_valid():
         new_wait = form.save(commit=False)
-        new_wait.user_id = request.user
+        new_wait.user_id = request.user.id
         new_wait.line_id = line_id
         new_wait.save()
-    return redirect('line_detail', line_id=line_id)
+    return redirect('detail', line_id=line_id)
 
 class WaitUpdate(UpdateView):
     model = Wait

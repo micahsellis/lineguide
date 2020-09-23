@@ -22,7 +22,7 @@
     </div>
     <div class="card-reveal grey darken-1 center-align">
       <span class="card-title white-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Wait Time<i class="material-icons right">close</i></span>
-      <form action="" method="post">
+      <form action="{% url 'add_wait' line.id %}" method="post">
         {% csrf_token %} {{ wait_form.as_p }}
         <input type="submit" class="btn cyan" value="Add Wait Time" style="border-radius: 15px;" />
       </form>
@@ -42,7 +42,7 @@
   </div>
   <div class="card-action">
     <a class="cyan-text" href="{% url 'line_update' line.id %}">Edit</a>
-    <a class="cyan-text" href="{% url 'line_update' line.id %}">Delete</a>
+    <a class="cyan-text" href="{% url 'line_delete' line.id %}">Delete</a>
   </div>
 </div>
 
