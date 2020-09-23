@@ -10,6 +10,11 @@ body {
 main {
   flex: 1 0 auto;
 }
+.responsive {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+}
 nav ul li a, nav ul li input{
   color: #00bcd4;
 }    

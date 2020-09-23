@@ -4,11 +4,11 @@
 
 <div class="row ">
   <div class="col s6">
-    <div class="card-panel grey darken-1 teal-text valign-wrapper" style="border-radius: 15px; height: 350px; border-top: 10px;">
+    <div class="card-panel grey darken-1 teal-text valign-wrapper" style="border-radius: 15px;">
       {% for photo in line.photo_set.all %}
-      <img class="responsive-img" src="{{photo.url}}" alt="" style="height: 250px; border-top: 10px;" />
+      <img class="responsive card-image" src="{{photo.url}}" alt="" />
       {% empty %}
-      <div class="card-panel teal-text center-align">{% static 'images/lg_no_photo.png'%}</div>
+      <img class="responsive card-image center" src="{% static 'images/lg_no_photo.png' %}" alt="" />
       {% endfor %}
     </div>
   </div>
