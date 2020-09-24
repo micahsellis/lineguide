@@ -85,6 +85,15 @@ def all_lines(request):
     lines = Line.objects.filter(user=request.user.id)
     return render(request, 'lines/all.html', {'lines': lines})
 
+def add_yelp_wait(request, yelp_id):
+    yelp_wait = Yelp.objects.get(business_id=yelp_id)
+    form = WaitForm(request.POST)
+    if form.is_valid():
+        new_wait = form.save(commit=False)
+        new_wait.user_id = request.user.id
+        new_wait.business_id = yelp_wait
+        new_wait.save()
+    return redirect('yelp_detail', yelp_id=yelp_id)
 
 def add_wait(request, line_id):
     form = WaitForm(request.POST)
@@ -108,7 +117,10 @@ class WaitUpdate(LoginRequiredMixin, UpdateView):
 def WaitDelete(request, wait_id):
     wait = Wait.objects.get(id=wait_id)
     wait.delete()
-    return redirect('detail', line_id=wait.line.id)
+    if wait.line:
+        return redirect('detail', line_id=wait.line.id)
+    else:
+        return redirect('yelp_detail', yelp_id=wait.business_id.business_id)
 
 def waits_detail(request, wait_id, line_id):
     template_name = 'lines/wait_detail.html'
@@ -156,5 +168,21 @@ def SearchResults(request):
     return render(request, 'search_results.html', {'lines': queryset, 'yelps': yelps})
     
 def yelp_detail(request, yelp_id):
-    yelp = yelp_detail(yelp_id)
-    return render(request, 'yelp_detail', {'yelp':yelp})
+    yelpdb = Yelp.objects.filter(business_id=yelp_id)
+    if yelpdb.count() is 0:
+        new_yelp = Yelp(business_id=yelp_id)
+        new_yelp.save()
+        yelpdb = new_yelp
+    wait_form = WaitForm()
+    waits = Wait.objects.filter(business_id=yelp_id)
+    total = 0
+    if len(waits) > 0:
+        for w in waits:
+            total += w.wait_time
+        avg = total / len(waits)
+        avg = round(avg, 1)
+    else:
+        avg = 0
+    yelp = get_details(yelp_id)
+    return render(request, 'lines/yelp_detail.html', {'yelp':yelp, 'yelpdb':yelpdb, 'waits':waits, 'avg':avg, 'wait_form':wait_form})
+    

@@ -22,7 +22,8 @@
                 </ul>
                 <ul class="right">
 
-                    <li><form action="{% url 'search_results' %}" method="get">
+                    <li><form action="{% url 'search_results' %}" method="post">
+                         {% csrf_token %}
                         <li><input name="q" type="text" placeholder="Search..."></li>
                         <li><input name="l" type="text" placeholder="Location"></li>
                         <li><button type="submit" class="btn-floating btn-small waves-effect cyan darken-1"><i
