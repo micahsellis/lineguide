@@ -17,4 +17,5 @@ urlpatterns = [
     path('waits/<int:wait_id>/delete/', views.WaitDelete, name='wait_delete'),
     path('search/', views.SearchResults, name='search_results'),
     path('lines/<int:line_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('yelp/<str:yelp_id>/', views.yelp_detail, name='yelp_detail'),
 ]

@@ -1,0 +1,89 @@
+{% extends 'base.html' %} 
+{% block content %} 
+{%load static%}
+<h1 class="cyan-text center">Line Details</h1>
+
+<div class="row ">
+    <div class="col s6">
+        <div class="card-panel grey darken-1 teal-text valign-wrapper center"
+            style="max-height: 350px;border-radius: 15px;">
+            <img class="responsive card-image" src="{{yelp.image_url}}" alt="" style="border-radius: 15px" />
+
+        </div>
+    </div>
+    <div class="card col s6 cyan" style="border-radius: 15px;">
+        <div class="card-content teal-text center-align" style="max-height: 350px;">
+            <span
+                class="card-title activator white-text text-darken-4 flow-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Average
+                Wait Time<i class="material-icons right" style="font-size: 35px;">more_vert</i>
+                <br><br></span>
+            {% if avg <= 10 %}
+            <p><span class="activator lime-text text-accent-3 flow-text" style="font-size: 100px">{{ avg }}</span>
+                <span class="activator lime-text text-accent-3 flow-text" style="font-size: 40px;">min</span></p>
+            {% elif avg > 10 and avg <= 20 %}
+            <p><span class="activator yellow-text text-accent-2 flow-text" style="font-size: 100px">{{ avg }}</span>
+                <span class="activator yellow-text text-accent-2 flow-text" style="font-size: 40px;">min</span></p>
+            {% elif avg > 20 %}
+            <p><span class="activator red-text text-darken-4 flow-text" style="font-size: 100px">{{ avg }}</span>
+                <span class="activator red-text text-darken-4 flow-text" style="font-size: 40px;">min</span></p>
+            {%else%}
+            <p><span class="activator red-text text-darken-4 flow-text" style="font-size: 50px">No Wait Times
+                    Submitted!</span>
+                {%endif%}
+            <p><a class="activator white-text flow-text" href="#" style="font-size: 25px;"><br>Add a new wait time</a>
+            </p>
+        </div>
+        <div class="card-reveal grey darken-1 center-align">
+            <span class="card-title white-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Wait Time<i
+                    class="material-icons right">close</i></span>
+            <form action="{% url 'add_wait' line.id %}" method="post">
+                {% csrf_token %} {{ wait_form.as_p }}
+                <input type="submit" class="btn cyan waves-effect waves-light" value="Add Wait Time"
+                    style="border-radius: 15px;" />
+            </form>
+            <br>
+            <table class="centered">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Party Size</th>
+                        <th>Date</th>
+                        {% if wait.user.id == request.user.id %}
+                        <th>Delete</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for wait in line.wait_set.all %}
+                    <tr>
+                        <td>{{wait.wait_time}}</td>
+                        <td>{{wait.party_size}}</td>
+                        <td>{{wait.created}}</td>
+                        {% if wait.user.id == request.user.id %}
+                        <td><a class="red-text text-darken-4" href="{% url 'wait_delete' wait.id %}"><i
+                                    class="material-icons">delete_forever</i></a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card col s12 grey darken-1" style="border-radius: 15px;">
+    <div class="card-content white-text">
+        <span class="card-title">{{ yelp.name }}</span>
+        <p>
+            Line Address: {{ yelp.location.address1 }}, {{ yelp.location.city }}, {{ yelp.location.state }}
+            {{yelp.location.zip_code}}
+        </p>
+        <p>Catergory: {{ yelp.categories.0.alias }}</p>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %}

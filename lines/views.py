@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from .forms import WaitForm
 from .models import *
-from .services import get_yelp
+from .services import *
 import os
 import json
 import uuid
@@ -143,23 +143,6 @@ class LineDelete(LoginRequiredMixin, DeleteView):
         else:
             return redirect('/')
 
-# class SearchResultsView(ListView):
-#   model = Line
-#   template_name = 'search_results.html'
-
-#   def get_queryset(self):
-#     query = self.request.GET.get('q')
-#     locale = self.request.GET.get('l')
-#     # cat = self.request.GET.get('c')
-#     queryset = Line.objects.filter(
-#         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
-#         Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)#,
-#         # Q(line_type__icontains=cat)
-#       )
-#     yelps = get_yelp(query, locale)
-#     print(yelps)
-#     return quer
-
 def SearchResults(request):
     query = request.POST.get('q')
     locale = request.POST.get('l')
@@ -172,4 +155,6 @@ def SearchResults(request):
     print(yelps)
     return render(request, 'search_results.html', {'lines': queryset, 'yelps': yelps})
     
-
+def yelp_detail(request, yelp_id):
+    yelp = yelp_detail(yelp_id)
+    return render(request, 'yelp_detail', {'yelp':yelp})

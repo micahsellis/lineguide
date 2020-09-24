@@ -36,7 +36,7 @@ class Line(models.Model):
 
 
 class Yelp(models.Model):
-    business_id = models.CharField(max_length=100)
+    business_id = models.CharField(max_length=100, primary_key=True)
 
 
 class Photo(models.Model):
