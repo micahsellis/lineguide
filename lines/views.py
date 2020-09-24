@@ -11,8 +11,11 @@ from .models import *
 from .services import get_yelp
 import os
 import json
+import uuid
+import boto3
 # Define the home view
 
+S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
 
 def home(request):
     return render(request, 'home.html', {'yelp': get_yelp()})
@@ -27,6 +30,20 @@ class LineCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+
+def add_photo(request, line_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + \
+            photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            Photo.objects.create(url=url, line_id=line_id)
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('detail', line_id=line_id)
 
 def lines_detail(request, line_id):
     line = Line.objects.get(id=line_id)
@@ -138,9 +155,11 @@ class SearchResultsView(ListView):
   def get_queryset(self):
     query = self.request.GET.get('q')
     locale = self.request.GET.get('l')
+    cat = self.request.GET.get('c')
     queryset = Line.objects.filter(
         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
-        Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)
+        Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale),
+        Q(line_type__icontains=cat)
       )
     return queryset
     
