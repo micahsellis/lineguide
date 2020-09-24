@@ -43,7 +43,7 @@
           <th>Time</th>
           <th>Party Size</th>
           <th>Date</th>
-          {% if line.user.id == request.user.id %}
+          {% if wait.user.id == request.user.id %}
           <th>Delete</th>
           {% endif %}
         </tr>
@@ -54,7 +54,7 @@
           <td>{{wait.wait_time}}</td>
           <td>{{wait.party_size}}</td>
           <td>{{wait.created}}</td>
-          {% if line.user.id == request.user.id %}
+          {% if wait.user.id == request.user.id %}
           <td><a class="red-text text-darken-4" href="{% url 'wait_delete' wait.id %}"><i class="material-icons">delete_forever</i></a></td>
           {% endif %}
         </tr>

@@ -3,7 +3,7 @@
 
 <h1 class="cyan-text text-darken-1" >Search Results</h1>
 
-{% for line in object_list %}
+{% for line in lines %}
 <div class="col s12 m7 hoverable">
     <a class="cyan-text" href="{% url 'detail' line.id %}">
         <div class="card horizontal grey darken-3 white-text" style="font-size: 19px; border-radius: 15px">
@@ -26,7 +26,26 @@
 </div>
 
 
-    {% endfor %}
+{% endfor %}
 
+{% for yelp in yelps %}
+<div class="col s12 m7 hoverable">
+    <a class="cyan-text" href="{% url 'yelp' yelp.id %}">
+        <div class="card horizontal grey darken-3 white-text" style="font-size: 19px; border-radius: 15px">
+            <div class="card-image">
+                <img src="{{ yelp.image_url }}" style="border-top-left-radius: 15px;border-bottom-left-radius: 15px;">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h4 class="cyan-text">{{ yelp.name }}</h5>
+                        <p>{{ yelp.location.address1 }}</p>
+                        <p>{{ yelp.location.city }} {{ yelp.location.state }}</p>
+                        <p>{{ yelp.categories[0]['alias'] }}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>
+{% endfor %}
 
 {% endblock %}
