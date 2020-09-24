@@ -12,6 +12,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('all/', views.all_lines, name='all_lines'),
     path('lines/<int:line_id>/add_wait', views.add_wait, name='add_wait'),
+    path('lines/<str:yelp_id>/add_wait', views.add_yelp_wait, name='add_yelp_wait'),
     path('waits/<int:wait_id>/<int:line_id>', views.waits_detail, name='wait_detail'),
     path('waits/<int:pk>/update/', views.WaitUpdate.as_view(), name='wait_update'),
     path('waits/<int:wait_id>/delete/', views.WaitDelete, name='wait_delete'),

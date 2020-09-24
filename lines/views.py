@@ -85,6 +85,14 @@ def all_lines(request):
     lines = Line.objects.filter(user=request.user.id)
     return render(request, 'lines/all.html', {'lines': lines})
 
+def add_yelp_wait(request, yelp_id):
+    form = WaitForm(request.POST)
+    if form.is_valid():
+        new_wait = form.save(commit=False)
+        new_wait.user_id = request.user.id
+        new_wait.business_id = yelp_id
+        new_wait.save()
+    return redirect('yelp_detail', yelp_id=yelp_id)
 
 def add_wait(request, line_id):
     form = WaitForm(request.POST)
@@ -156,5 +164,20 @@ def SearchResults(request):
     return render(request, 'search_results.html', {'lines': queryset, 'yelps': yelps})
     
 def yelp_detail(request, yelp_id):
-    yelp = yelp_detail(yelp_id)
-    return render(request, 'yelp_detail', {'yelp':yelp})
+    yelpdb = Yelp.objects.filter(business_id=yelp_id)
+    if yelpdb.count() is 0:
+        new_yelp = Yelp(business_id=yelp_id)
+        new_yelp.save()
+        yelpdb = new_yelp
+    wait_form = WaitForm()
+    wait = Wait.objects.filter(business_id=yelp_id)
+    total = 0
+    if len(wait) > 0:
+        for w in wait:
+            total += w.wait_time
+        avg = total / len(wait)
+        avg = round(avg, 1)
+    else:
+        avg = 0
+    yelp = get_details(yelp_id)
+    return render(request, 'lines/yelp_detail.html', {'yelp':yelpdb, 'wait':wait, 'avg':avg})

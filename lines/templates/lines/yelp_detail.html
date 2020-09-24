@@ -36,11 +36,11 @@
         <div class="card-reveal grey darken-1 center-align">
             <span class="card-title white-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Wait Time<i
                     class="material-icons right">close</i></span>
-            <form action="{% url 'add_wait' line.id %}" method="post">
+            <!-- <form action="{% url 'add_yelp_wait' yelp.business_id %}" method="post">
                 {% csrf_token %} {{ wait_form.as_p }}
                 <input type="submit" class="btn cyan waves-effect waves-light" value="Add Wait Time"
                     style="border-radius: 15px;" />
-            </form>
+            </form> -->
             <br>
             <table class="centered">
                 <thead>
@@ -54,7 +54,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for wait in line.wait_set.all %}
+                    {% for wait in yelp.wait_set.all %}
                     <tr>
                         <td>{{wait.wait_time}}</td>
                         <td>{{wait.party_size}}</td>
