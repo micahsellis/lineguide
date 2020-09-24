@@ -1,28 +1,34 @@
 {% extends 'base.html' %} {% block content %} {%load static%}
-<h1 class="cyan-text">Line Details</h1>
+<h1 class="cyan-text center">Line Details</h1>
 <a href="{% url 'detail' line.id %}"></a>
 
 <div class="row ">
   <div class="col s6">
-    <div class="card-panel grey darken-1 teal-text valign-wrapper" style="border-radius: 15px; height: 350px; border-top: 10px;">
+    <div class="card-panel grey darken-1 teal-text valign-wrapper center" style="max-height: 350px;border-radius: 15px;">
       {% for photo in line.photo_set.all %}
-      <img class="responsive-img" src="{{photo.url}}" alt="" style="height: 250px; border-top: 10px;" />
+      <img class="responsive card-image" src="{{photo.url}}" alt="" style="border-radius: 15px"/>
       {% empty %}
-      <div class="card-panel teal-text center-align">{% static 'images/lg_no_photo.png'%}</div>
+      <img class="activator responsive card-image center" src="{% static 'images/lg_no_photo.png' %}" alt="" style="border-radius: 15px" />
       {% endfor %}
     </div>
   </div>
   <div class="card col s6 cyan" style="border-radius: 15px;">
-    <div class="card-content teal-text center-align" style="height: 350px;">
-      <span class="card-title activator white-text text-darken-4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Average Wait Time<i class="material-icons right" style="font-size: 35px;">more_vert</i>
+    <div class="card-content teal-text center-align" style="max-height: 350px;">
+      <span class="card-title activator white-text text-darken-4 flow-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Average Wait Time<i class="material-icons right" style="font-size: 35px;">more_vert</i>
         <br><br></span>
-        {%if avg %}
-      <p><span class="activator red-text text-darken-4" style="font-size: 100px">{{ avg }}</span>
-      <span class="activator red-text text-darken-4" style="font-size: 40px;">min</span></p>
-      {%else%}
-      <p><span class="activator red-text text-darken-4" style="font-size: 50px">No Wait Times Submitted!</span>
+      {% if avg <= 10 %}
+      <p><span class="activator lime-text text-accent-3 flow-text" style="font-size: 100px">{{ avg }}</span>
+      <span class="activator lime-text text-accent-3 flow-text" style="font-size: 40px;">min</span></p>
+      {% elif avg > 10 and avg <= 20 %}
+      <p><span class="activator yellow-text text-accent-2 flow-text" style="font-size: 100px">{{ avg }}</span>
+        <span class="activator yellow-text text-accent-2 flow-text" style="font-size: 40px;">min</span></p>
+      {% elif avg > 20 %}
+      <p><span class="activator red-text text-darken-4 flow-text" style="font-size: 100px">{{ avg }}</span>
+        <span class="activator red-text text-darken-4 flow-text" style="font-size: 40px;">min</span></p>
+        {%else%}
+      <p><span class="activator red-text text-darken-4 flow-text" style="font-size: 50px">No Wait Times Submitted!</span>
       {%endif%}
-      <p><a class="activator white-text" href="#" style="font-size: 25px;"><br>Add a new wait time</a></p>
+      <p><a class="activator white-text flow-text" href="#" style="font-size: 25px;"><br>Add a new wait time</a></p>
     </div>
       <div class="card-reveal grey darken-1 center-align">
         <span class="card-title white-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Add Wait Time<i class="material-icons right">close</i></span>
@@ -31,11 +37,15 @@
           <input type="submit" class="btn cyan waves-effect waves-light" value="Add Wait Time" style="border-radius: 15px;" />
         </form>
         <br>
-        <table class="striped">
+        <table class="centered">
       <thead>
         <tr>
           <th>Time</th>
-          <th>Party</th>
+          <th>Party Size</th>
+          <th>Date</th>
+          {% if line.user.id == request.user.id %}
+          <th>Delete</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -43,15 +53,22 @@
         <tr>
           <td>{{wait.wait_time}}</td>
           <td>{{wait.party_size}}</td>
+          <td>{{wait.created}}</td>
+          {% if line.user.id == request.user.id %}
+          <td><a class="red-text text-darken-4" href="{% url 'wait_delete' wait.id %}"><i class="material-icons">delete_forever</i></a></td>
+          {% endif %}
         </tr>
         {% endfor %}
       </tbody>
     </table>
-      </div>
     </div>
   </div>
 </div>
-<div class="card grey darken-1" style="border-radius: 15px;">
+
+  {% if line.user.id == request.user.id %}
+  {% for photo in line.photo_set.all %}
+
+<div class="card col s12 grey darken-1" style="border-radius: 15px;">
   <div class="card-content white-text">
     <span class="card-title">{{ line.name }}</span>
     <p>
@@ -62,12 +79,67 @@
     <p>Catergory: {{ line.catergory }}</p>
     <p>Description: {{ line.description }}</p>
   </div>
-  <div class="card-action">
-    <a class="cyan-text" href="{% url 'line_update' line.id %}">Edit</a>
-    <a class="cyan-text" href="{% url 'line_delete' line.id %}">Delete</a>
+  {% if line.user.id == request.user.id %}
+  <div class="card-action" style="border-radius: 15px;">
+    <a class="cyan-text center" href="{% url 'line_update' line.id %}">Edit</a>
+    <a class="red-text text-darken-4 right" href="{% url 'line_delete' line.id %}">Delete</a>
+  </div>
+  {% endif %}
+</div>
+  {% empty %}
+<div class="row">
+  <div class="col s6">
+    <form action="{% url 'add_photo' line.id %}" enctype="multipart/form-data" method="POST" class="card-panel grey darken-1 center" style="border-radius: 15px; height: 230px">
+      {% csrf_token %}
+      <input type="file" name="photo-file" class="white-text">
+      <br><br>
+      <input type="submit" class="btn cyan" value="Upload Photo">
+    </form>
+  </div>
+  
+  <div class="card col s6 grey darken-1" style="border-radius: 15px;">
+    <div class="card-content white-text">
+      <span class="card-title">{{ line.name }}</span>
+      <p>
+        Line Address: {{ line.address }}, {{ line.city }}, {{ line.state }}
+        {{line.postal_code}}
+      </p>
+      <p>Line Type: {{ line.get_line_type_display }}</p>
+      <p>Catergory: {{ line.catergory }}</p>
+      <p>Description: {{ line.description }}</p>
+    </div>
+    {% if line.user.id == request.user.id %}
+    <div class="card-action" style="border-radius: 15px;">
+      <a class="cyan-text center" href="{% url 'line_update' line.id %}">Edit</a>
+      <a class="red-text text-darken-4 right" href="{% url 'line_delete' line.id %}">Delete</a>
+    </div>
+    {% endif %}
   </div>
 </div>
-
+{% endfor %}
+{% endif %}
+{% if line.user.id != request.user.id %}
+  <div class="card col s12 grey darken-1" style="border-radius: 15px;">
+    <div class="card-content white-text">
+      <span class="card-title">{{ line.name }}</span>
+      <p>
+        Line Address: {{ line.address }}, {{ line.city }}, {{ line.state }}
+        {{line.postal_code}}
+      </p>
+      <p>Line Type: {{ line.get_line_type_display }}</p>
+      <p>Catergory: {{ line.catergory }}</p>
+      <p>Description: {{ line.description }}</p>
+    </div>
+    {% if line.user.id == request.user.id %}
+    <div class="card-action" style="border-radius: 15px;">
+      <a class="cyan-text center" href="{% url 'line_update' line.id %}">Edit</a>
+      <a class="red-text text-darken-4 right" href="{% url 'line_delete' line.id %}">Delete</a>
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+  
+  
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 {% endblock %}

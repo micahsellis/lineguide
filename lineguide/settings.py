@@ -130,7 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/lines/create/'
+LOGIN_REDIRECT_URL = '/all/'
 LOGOUT_REDIRECT_URL = '/'
 
 import django_heroku
