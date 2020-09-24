@@ -16,6 +16,7 @@ import boto3
 # Define the home view
 
 S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
+BUCKET = 'lineguide-me'
 
 def home(request):
     return render(request, 'home.html', {'yelp': get_yelp()})
