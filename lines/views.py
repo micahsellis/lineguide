@@ -155,11 +155,11 @@ class SearchResultsView(ListView):
   def get_queryset(self):
     query = self.request.GET.get('q')
     locale = self.request.GET.get('l')
-    cat = self.request.GET.get('c')
+    # cat = self.request.GET.get('c')
     queryset = Line.objects.filter(
         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
-        Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale),
-        Q(line_type__icontains=cat)
+        Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)#,
+        # Q(line_type__icontains=cat)
       )
     return queryset
     
