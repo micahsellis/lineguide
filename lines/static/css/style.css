@@ -49,3 +49,12 @@ footer.page-footer {
 
   justify-items: center;
 }
+
+r{
+  font-size: 18px;
+  background-image: url(lg_logo_big_blk);
+}
+
+sr{
+  font-size: 20px;
+}
