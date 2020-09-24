@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.http import HttpResponse
+from django.urls import reverse_lazy
 from .forms import WaitForm
 from .models import *
 from .services import get_yelp
@@ -104,16 +105,10 @@ class WaitUpdate(LoginRequiredMixin, UpdateView):
         else:
             return redirect('/')
 
-
-class WaitDelete(LoginRequiredMixin, DeleteView):
-    model = Wait
-    success_url = '/'
-
-    def form_valid(self, form):
-        if form.instance.user == self.request.user:
-            return super().form_valid(form)
-        else:
-            return redirect('/')
+def WaitDelete(request, wait_id):
+    wait = Wait.objects.get(id=wait_id)
+    wait.delete()
+    return redirect('detail', line_id=wait.line.id)
 
 def waits_detail(request, wait_id, line_id):
     template_name = 'lines/wait_detail.html'
@@ -169,11 +164,9 @@ def SearchResults(request):
     query = request.POST.get('q')
     locale = request.POST.get('l')
     print(query, locale)
-    # cat = self.request.GET.get('c')
     queryset = Line.objects.filter(
         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
-        Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)#,
-        # Q(line_type__icontains=cat)
+        Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)#
         )
     yelps = get_yelp(query, locale)
     print(yelps)
