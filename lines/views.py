@@ -19,7 +19,7 @@ S3_BASE_URL = 'https://s3.us-east-2.amazonaws.com/'
 BUCKET = 'lineguide-me'
 
 def home(request):
-    return render(request, 'home.html', {'yelp': get_yelp()})
+    return render(request, 'home.html')
 
 
 class LineCreate(LoginRequiredMixin, CreateView):
@@ -148,19 +148,35 @@ class LineDelete(LoginRequiredMixin, DeleteView):
         else:
             return redirect('/')
 
-class SearchResultsView(ListView):
-  model = Line
-  template_name = 'search_results.html'
+# class SearchResultsView(ListView):
+#   model = Line
+#   template_name = 'search_results.html'
 
-  def get_queryset(self):
-    query = self.request.GET.get('q')
-    locale = self.request.GET.get('l')
+#   def get_queryset(self):
+#     query = self.request.GET.get('q')
+#     locale = self.request.GET.get('l')
+#     # cat = self.request.GET.get('c')
+#     queryset = Line.objects.filter(
+#         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
+#         Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)#,
+#         # Q(line_type__icontains=cat)
+#       )
+#     yelps = get_yelp(query, locale)
+#     print(yelps)
+#     return quer
+
+def SearchResults(request):
+    query = request.POST.get('q')
+    locale = request.POST.get('l')
+    print(query, locale)
     # cat = self.request.GET.get('c')
     queryset = Line.objects.filter(
         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
         Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)#,
         # Q(line_type__icontains=cat)
-      )
-    return queryset
+        )
+    yelps = get_yelp(query, locale)
+    print(yelps)
+    return render(request, 'search_results.html', {'lines': queryset, 'yelps': yelps})
     
 

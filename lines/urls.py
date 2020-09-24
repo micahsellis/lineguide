@@ -15,6 +15,6 @@ urlpatterns = [
     path('waits/<int:wait_id>/<int:line_id>', views.waits_detail, name='wait_detail'),
     path('waits/<int:pk>/update/', views.WaitUpdate.as_view(), name='wait_update'),
     path('waits/<int:pk>/delete/', views.WaitDelete.as_view(), name='wait_delete'),
-    path('search/', views.SearchResultsView.as_view(), name='search_results'),
+    path('search/', views.SearchResults, name='search_results'),
     path('lines/<int:line_id>/add_photo/', views.add_photo, name='add_photo'),
 ]
