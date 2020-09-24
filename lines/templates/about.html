@@ -1,16 +1,57 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block content %} {%load static%}
 
-<h1 class="cyan-text">About the Line Guide</h1>
-<p>Informs people about local business wait times.</p>
+<h1 class="cyan-text flow-text">About the Line Guide</h1>
+<div class="card-image card transparent z-depth-5">
+          <img src="{% static 'images/lg_logo_big_blk.png' %}">
+<div class='center-align flow-text'<br>
+<r>In a world used to "Instant Gratification", people HATE lines!</r>
+<br>
+<r>Line Guide was created to help you navigate through the lines at nearby establishments. You no longer have to be mislead by establishments with incorrect wait times or waste precious time of your life waiting in lines!!</r>
+<br>
+<r> We hope that with this app, you get a chance to explore new places, and help your fellow humans out, by adding wait times and creating lines! </r>
+</div>
+</div>
+<br>
+<br>
 <hr />
-<h5 class="cyan-text">FAQ</h5>
-<p>1. I can't find the line I'm looking for.</p>
-<p>Line guide gives you the ability to create a new line! You must be logged in to add a new line. Simply click login/signup link at the top of the screen and login or create a new account! Once you have logged in you can click on Create NEW Line and add information about the business you want to create a line for.</p>
-<p>2. How can I see all the wait times for a line?</p>
-<p>Navigate to a business details page and click the 3 dots in the top right of the average wait time card. Here you can add a new time or view all the wait times submitted by other users.</p>
-<p>3. Can i edit a line or change a picture?</p>
-<p>If you created the line you can go to the business details page and at the bottom you can click on the Update Line link to make changes to your line</p>
+<div class="row">
+    <div class="card col s6 cyan" style="border-radius: 15px;">
+        <div class="card-content teal-text center-align" style="height: 150px;">
+            <span class="card-title activator white-text text-darken-4 flow-text">Frequently Asked Questions<i class="material-icons right" style="font-size: 35px;">more_vert</i></span>
+        </div> 
+        <div class="card-reveal grey darken-1 center-align">
+            <span class="card-title white-text flow-text">FAQs<i class="material-icons right">close</i></span>
+                <p>1. I can't find the line I'm looking for.</p>
+                <p>Line Guide gives you the ability to create a new line! You must be logged in to add a new line. Simply click login/signup link at the top of the screen and login or create a new account! Once you have logged in you can click on Create NEW Line and add information about the business you want to create a line for.</p>
+                <p>2. How can I see all the wait times for a line?</p>
+                <p>Navigate to a business details page and click the 3 dots in the top right of the average wait time card. Here you can add a new time or view all the wait times submitted by other users.</p>
+                <p>3. Can I edit a line or change a picture?</p>
+                <p>Lines can only be edited by you, if you created the line. Navigate to the business details page and at the bottom, click on the Update Line link to make changes to your line.</p>
+        </div>
+    </div>
 
-
+    <div class="card col s6 cyan" style="border-radius: 15px;">
+        <div class="card-content teal-text center-align" style="height: 150px;">
+            <span class="card-title activator white-text text-darken-4">Meet The Developers<i class="material-icons right" style="font-size: 35px;">more_vert</i></span>
+        </div> 
+        <div class="card-reveal grey darken-1 center-align">
+            <span class="card-title white-text center-align">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Developers<i class="material-icons right">close</i></span>
+                <sr>Micah Ellis</sr>
+                <br>
+                <a class='white-text' href="https://www.linkedin.com/in/micahsellis/">Click Here to connect with Micah!</a>
+                <br>
+                <br>
+                <sr>Robbie Davidson</sr>
+                <br>
+                <a class='white-text' href="https://www.linkedin.com/in/robert-davidson-23792051/">Click Here to connect with Robbie!</a>
+                <br>
+                <br>
+                <sr>Shari Reyes</sr>
+                <br>
+                <a class='white-text' ="https://www.linkedin.com/in/shari-reyes-048b4a130/">Click Here to connect with Shari!</a>
+        </div>
+    </div>
+</div>    
+            
 {% endblock %}
