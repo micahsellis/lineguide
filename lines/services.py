@@ -11,7 +11,6 @@ def get_yelp(query, locale):
     yelps_list = []
     for bus in response['businesses']:
         yelps_list.append(bus)
-
     return yelps_list
 
 def get_details(yelp_id):

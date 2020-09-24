@@ -51,7 +51,7 @@ class Wait(models.Model):
     wait_time = models.IntegerField()
     party_size = models.IntegerField()
     business_id = models.ForeignKey(Yelp, on_delete=models.CASCADE, blank=True, null=True)
-    line = models.ForeignKey(Line, on_delete=models.CASCADE)
+    line = models.ForeignKey(Line, on_delete=models.CASCADE, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
 

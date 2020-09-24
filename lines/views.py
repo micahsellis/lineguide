@@ -86,11 +86,12 @@ def all_lines(request):
     return render(request, 'lines/all.html', {'lines': lines})
 
 def add_yelp_wait(request, yelp_id):
+    yelp_wait = Yelp.objects.get(business_id=yelp_id)
     form = WaitForm(request.POST)
     if form.is_valid():
         new_wait = form.save(commit=False)
         new_wait.user_id = request.user.id
-        new_wait.business_id = yelp_id
+        new_wait.business_id = yelp_wait
         new_wait.save()
     return redirect('yelp_detail', yelp_id=yelp_id)
 
@@ -116,7 +117,10 @@ class WaitUpdate(LoginRequiredMixin, UpdateView):
 def WaitDelete(request, wait_id):
     wait = Wait.objects.get(id=wait_id)
     wait.delete()
-    return redirect('detail', line_id=wait.line.id)
+    if wait.line:
+        return redirect('detail', line_id=wait.line.id)
+    else:
+        return redirect('yelp_detail', yelp_id=wait.business_id.business_id)
 
 def waits_detail(request, wait_id, line_id):
     template_name = 'lines/wait_detail.html'
@@ -170,14 +174,15 @@ def yelp_detail(request, yelp_id):
         new_yelp.save()
         yelpdb = new_yelp
     wait_form = WaitForm()
-    wait = Wait.objects.filter(business_id=yelp_id)
+    waits = Wait.objects.filter(business_id=yelp_id)
     total = 0
-    if len(wait) > 0:
-        for w in wait:
+    if len(waits) > 0:
+        for w in waits:
             total += w.wait_time
-        avg = total / len(wait)
+        avg = total / len(waits)
         avg = round(avg, 1)
     else:
         avg = 0
     yelp = get_details(yelp_id)
-    return render(request, 'lines/yelp_detail.html', {'yelp':yelpdb, 'wait':wait, 'avg':avg})
+    return render(request, 'lines/yelp_detail.html', {'yelp':yelp, 'yelpdb':yelpdb, 'waits':waits, 'avg':avg, 'wait_form':wait_form})
+    
