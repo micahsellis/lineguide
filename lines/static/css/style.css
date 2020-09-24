@@ -22,6 +22,9 @@ label {
   max-height: 350px;
   object-fit: cover;
 }
+input#file-upload-button {
+  color: #00bcd4
+}
 ul li, span.helptext{
   color: #00838f;
 }
