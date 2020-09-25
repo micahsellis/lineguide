@@ -18,6 +18,8 @@
 
 [ERD Charts](https://app.lucidchart.com/documents/edit/5cf88bf5-6da9-43bf-a857-8b7086336f75/0_0#?folder_id=home&browser=icon)
 
+[Pitch Deck](https://www.canva.com/design/DAEIE7o1vQI/Xz7K6h5Y4rA2wakatYgU-A/view?utm_content=DAEIE7o1vQI&utm_campaign=designshare&utm_medium=link&utm_source=homepage_design_menu)
+
 <img src="https://i.imgur.com/svRu1SQ.png"/>
 <img src="https://i.imgur.com/sdeikbt.png"/>
 
