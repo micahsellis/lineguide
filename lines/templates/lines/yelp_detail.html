@@ -4,14 +4,16 @@
 <h1 class="cyan-text center">Line Details</h1>
 
 <div class="row ">
-    <div class="col s6">
-        <div class="card-panel grey darken-1 teal-text valign-wrapper center"
-            style="max-height: 350px;border-radius: 15px;">
-            <img class="responsive card-image" src="{{yelp.image_url}}" alt="" style="border-radius: 15px" />
-
-        </div>
+    <div class="col s12 m6">
+        {% if yelp.image_url %}
+        <img class="responsive" src="{{ yelp.image_url }}" alt=""
+            style="margin-top: 10px; margin-right: 4px; height: 345px; max-width: 500px; border-radius: 15px" />
+        {% else %}
+        <img class="responsive" src="{% static 'images/lg_no_photo.png' %}" alt=""
+            style="margin-top: 10px; margin-right: 4px; height: 345px; max-width: 500px; border-radius: 15px" />
+        {% endif %}
     </div>
-    <div id="click" class="card activator col s6 cyan" style="border-radius: 15px;">
+    <div id="click" class="card activator col s12 m6 cyan" style="border-radius: 15px;">
         <div class="card-content activator teal-text center-align" style="max-height: 350px;">
             <span
                 class="card-title activator white-text text-darken-4 flow-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Average
@@ -72,9 +74,11 @@
     </div>
 </div>
 
-<div class="card col s12 grey darken-1" style="border-radius: 15px;">
+<div class="card col s12 m12 grey darken-1" style="border-radius: 15px;">
     <div class="card-content white-text">
         <span class="card-title">{{ yelp.name }}</span>
+        <a href="{{ yelp.url }}" class="btn-floating halfway-fab waves-effect waves-light red" style="top: 10px;"><img
+                src="{% static 'images/yelp.png' %}" alt="" style="width: 40px;"></a>
         <p>
             Line Address: {{ yelp.location.address1 }}, {{ yelp.location.city }}, {{ yelp.location.state }}
             {{yelp.location.zip_code}}

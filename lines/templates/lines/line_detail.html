@@ -3,16 +3,14 @@
 <a href="{% url 'detail' line.id %}"></a>
 
 <div class="row ">
-  <div class="col s6">
-    <div class="card-panel grey darken-1 teal-text valign-wrapper center" style="max-height: 350px;border-radius: 15px;">
-      {% for photo in line.photo_set.all %}
-      <img class="responsive card-image" src="{{photo.url}}" alt="" style="border-radius: 15px"/>
-      {% empty %}
-      <img class="activator responsive card-image center" src="{% static 'images/lg_no_photo.png' %}" alt="" style="border-radius: 15px" />
-      {% endfor %}
-    </div>
+  <div class="col s12 m6">
+    {% for photo in line.photo_set.all %}
+    <img class="responsive" src="{{photo.url}}" alt="" style="margin-top: 10px; margin-right: 4px; height: 345px; max-width: 500px; border-radius: 15px"/>
+    {% empty %}
+    <img class="responsive" src="{% static 'images/lg_no_photo.png' %}" alt="" style="margin-top: 10px; margin-right: 4px; height: 345px; max-width: 500px; border-radius: 15px" />
+    {% endfor %}
   </div>
-  <div id="click" class="card activator col s6 cyan" style="border-radius: 15px;">
+  <div id="click" class="card activator col s12 m6 cyan" style="border-radius: 15px;">
     <div class="card-content teal-text center-align" style="max-height: 350px;">
       <span class="card-title activator white-text text-darken-4 flow-text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Average Wait Time<i class="material-icons right" style="font-size: 35px;">more_vert</i>
         <br><br></span>
@@ -68,7 +66,7 @@
   {% if line.user.id == request.user.id %}
   {% for photo in line.photo_set.all %}
 
-<div class="card col s12 grey darken-1" style="border-radius: 15px;">
+<div class="card col s12 m6 grey darken-1" style="border-radius: 15px;">
   <div class="card-content white-text">
     <span class="card-title">{{ line.name }}</span>
     <p>
@@ -88,7 +86,7 @@
 </div>
   {% empty %}
 <div class="row">
-  <div class="col s6">
+  <div class="col s12 m6">
     <form action="{% url 'add_photo' line.id %}" enctype="multipart/form-data" method="POST" class="card-panel grey darken-1 center" style="border-radius: 15px; height: 230px">
       {% csrf_token %}
       <input type="file" name="photo-file" class="white-text">
@@ -97,7 +95,7 @@
     </form>
   </div>
   
-  <div class="card col s6 grey darken-1" style="border-radius: 15px;">
+  <div class="card col s12 m6 grey darken-1" style="border-radius: 15px;">
     <div class="card-content white-text">
       <span class="card-title">{{ line.name }}</span>
       <p>
@@ -130,14 +128,8 @@
       <p>Catergory: {{ line.catergory }}</p>
       <p>Description: {{ line.description }}</p>
     </div>
-    {% if line.user.id == request.user.id %}
-    <div class="card-action" style="border-radius: 15px;">
-      <a class="cyan-text center" href="{% url 'line_update' line.id %}">Edit</a>
-      <a class="red-text text-darken-4 right" href="{% url 'line_delete' line.id %}">Delete</a>
-    </div>
-    {% endif %}
   </div>
-  {% endif %}
+{% endif %}
   
   
 

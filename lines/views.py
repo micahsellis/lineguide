@@ -158,13 +158,11 @@ class LineDelete(LoginRequiredMixin, DeleteView):
 def SearchResults(request):
     query = request.POST.get('q')
     locale = request.POST.get('l')
-    print(query, locale)
     queryset = Line.objects.filter(
         Q(name__icontains=query) | Q(line_type__icontains=query) | Q(category__icontains=query),
         Q(city__icontains=locale) | Q(state__icontains=locale) | Q(postal_code__icontains=locale)#
         )
     yelps = get_yelp(query, locale)
-    print(yelps)
     return render(request, 'search_results.html', {'lines': queryset, 'yelps': yelps})
     
 def yelp_detail(request, yelp_id):
