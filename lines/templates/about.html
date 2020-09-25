@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% block content %} {%load static%}
 
-<h1 class="cyan-text flow-text">About the Line Guide</h1>
-<div class="card-image card transparent z-depth-5">
+<h1 class="cyan-text flow-text center-align">About the Line Guide</h1>
+<div class="card-image center-align">
           <img src="{% static 'images/lg_logo_big_blk.png' %}">
 <div class='center-align flow-text'<br>
+<br>
 <r>In a world used to "Instant Gratification", people HATE lines!</r>
 <br>
+<br>
 <r>Line Guide was created to help you navigate through the lines at nearby establishments. You no longer have to be mislead by establishments with incorrect wait times or waste precious time of your life waiting in lines!!</r>
+<br>
 <br>
 <r> We hope that with this app, you get a chance to explore new places, and help your fellow humans out, by adding wait times and creating lines! </r>
 </div>
@@ -15,10 +18,13 @@
 <br>
 <br>
 <hr />
-<div class="row">
-    <div class="card col s6 cyan" style="border-radius: 15px;">
-        <div class="card-content teal-text center-align" style="height: 150px;">
+<div class="row">   
+<div class="col s6">
+    <div class="card" style="border-radius: 15px;">
+        <div id="click" class="card-content teal-text center-align cyan" style="height: 250px; border-radius: 15px;">
             <span class="card-title activator white-text text-darken-4 flow-text">Frequently Asked Questions<i class="material-icons right" style="font-size: 35px;">more_vert</i></span>
+            <br>
+            <p id="click"><a class="activator white-text flow-text" style="font-size: 25px;"><br>Click Here For More Info</a></p>
         </div> 
         <div class="card-reveal grey darken-1 center-align">
             <span class="card-title white-text flow-text">FAQs<i class="material-icons right">close</i></span>
@@ -29,11 +35,15 @@
                 <p>3. Can I edit a line or change a picture?</p>
                 <p>Lines can only be edited by you, if you created the line. Navigate to the business details page and at the bottom, click on the Update Line link to make changes to your line.</p>
         </div>
+        </div>
   </div>
 
-    <div class="card col s6 cyan" style="border-radius: 15px;">
-        <div class="card-content teal-text center-align" style="height: 150px;">
+    <div class="col s6">
+    <div class="card" style="border-radius: 15px;">
+        <div id="click" class="card-content teal-text center-align cyan" style="height: 250px; border-radius: 15px;">
             <span class="card-title activator white-text text-darken-4">Meet The Developers<i class="material-icons right" style="font-size: 35px;">more_vert</i></span>
+            <br>
+            <p id="click"><a class="activator white-text flow-text" style="font-size: 25px;"><br>Click Here For More Info</a></p>
         </div> 
         <div class="card-reveal grey darken-1 center-align">
             <span class="card-title white-text center-align">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Developers<i class="material-icons right">close</i></span>
@@ -50,6 +60,7 @@
                 <sr>Shari Reyes</sr>
                 <br>
                 <a class='white-text' ="https://www.linkedin.com/in/shari-reyes-048b4a130/">Click Here to connect with Shari!</a>
+        </div>
         </div>
     </div>
 </div>    
