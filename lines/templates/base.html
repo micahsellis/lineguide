@@ -24,8 +24,8 @@
 
                     <li><form action="{% url 'search_results' %}" method="post">
                          {% csrf_token %}
-                        <li><input name="q" type="text" placeholder="Search..."></li>
-                        <li><input name="l" type="text" placeholder="Location"></li>
+                        <li><input name="q" type="text" placeholder="Search..." required></li>
+                        <li><input name="l" type="text" placeholder="Location" required></li>
                         <li><button type="submit" class="btn-floating btn-small waves-effect cyan darken-1"><i
                                     class="material-icons">search</i></button>&nbsp;&nbsp;&nbsp;&nbsp;</li>
                     </form></li>
