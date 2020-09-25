@@ -1,5 +1,6 @@
 # lineguide
 
+Line Guide was created to help you navigate through the lines at nearby establishments. You no longer have to be mislead by establishments with incorrect wait times or waste precious time of your life waiting in lines!
 
 ## Technology:
 - HTML
