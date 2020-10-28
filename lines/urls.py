@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from . import views
+from django.contrib.staticfiles.storage import staticfiles_storage
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -19,4 +21,6 @@ urlpatterns = [
     path('search/', views.SearchResults, name='search_results'),
     path('lines/<int:line_id>/add_photo/', views.add_photo, name='add_photo'),
     path('yelp/<str:yelp_id>/', views.yelp_detail, name='yelp_detail'),
+  	 path('favicon.ico', RedirectView.as_view(
+  	     url=staticfiles_storage.url('images/favicon.ico'))),
 ]
